@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'" />
+  <title>Keyloop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ── lock screen ─────────────────────────────────────────────────────── -->
+  <div id="lock-screen" class="screen">
+    <div class="lock-card">
+      <div class="logo">🔑</div>
+      <h1>Keyloop</h1>
+      <p class="muted" id="lock-subtitle">Your 2FA codes. Local. Encrypted. Exportable.</p>
+      <input type="password" id="master-password" placeholder="master password" autofocus />
+      <input type="password" id="master-password2" placeholder="confirm master password" class="hidden" />
+      <button id="unlock-btn" class="btn primary">Unlock</button>
+      <p id="lock-error" class="error"></p>
+      <p class="tiny muted">AES-256-GCM · scrypt · nothing ever leaves this machine</p>
+    </div>
+  </div>
+
+  <!-- ── main ────────────────────────────────────────────────────────────── -->
+  <div id="main-screen" class="screen hidden">
+    <header>
+      <span class="logo small">🔑</span>
+      <strong>Keyloop</strong>
+      <input id="search" placeholder="Search accounts…" />
+      <button id="add-btn" class="btn primary">+ Add</button>
+      <div class="menu-wrap">
+        <button id="backup-btn" class="btn ghost">Backup ▾</button>
+        <div id="backup-menu" class="menu hidden">
+          <button id="export-btn">Export encrypted .keyloop</button>
+          <button id="qr-sheet-btn">Print QR paper backup</button>
+          <button id="import-btn">Import .keyloop backup</button>
+          <button id="import-uri-btn">Import otpauth:// list</button>
+        </div>
+      </div>
+      <button id="lock-btn" class="btn ghost" title="Lock vault">🔒 Lock</button>
+    </header>
+    <div id="accounts"></div>
+    <div id="empty-state" class="hidden">
+      <p>No accounts yet.</p>
+      <p class="muted">Add your first 2FA account — scan a QR screenshot, paste an otpauth:// URI, or type the secret.</p>
+    </div>
+  </div>
+
+  <!-- ── add modal ───────────────────────────────────────────────────────── -->
+  <div id="add-modal" class="overlay hidden">
+    <div class="modal">
+      <div class="modal-head"><h2>Add account</h2><button class="close" data-close>&times;</button></div>
+      <div class="tabs">
+        <button class="tab active" data-tab="manual">Manual</button>
+        <button class="tab" data-tab="uri">otpauth URI</button>
+        <button class="tab" data-tab="qr">QR image</button>
+      </div>
+      <div class="tab-pane" id="pane-manual">
+        <input id="add-issuer" placeholder="issuer (e.g. GitHub)" />
+        <input id="add-label" placeholder="account (e.g. ben@example.com)" />
+        <input id="add-secret" placeholder="secret (base32)" />
+        <div class="row">
+          <select id="add-digits"><option>6</option><option>7</option><option>8</option></select>
+          <select id="add-period"><option>30</option><option>60</option></select>
+          <select id="add-algo"><option>SHA1</option><option>SHA256</option><option>SHA512</option></select>
+        </div>
+      </div>
+      <div class="tab-pane hidden" id="pane-uri">
+        <textarea id="add-uri" rows="3" placeholder="otpauth://totp/GitHub:ben?secret=…"></textarea>
+      </div>
+      <div class="tab-pane hidden" id="pane-qr">
+        <label class="dropzone" id="qr-drop">
+          <input type="file" id="qr-file" accept="image/*" hidden />
+          <span>Drop a QR screenshot here<br /><em>or click to choose an image</em></span>
+        </label>
+        <p id="qr-result" class="tiny muted"></p>
+      </div>
+      <p id="add-error" class="error"></p>
+      <button id="add-save" class="btn primary wide">Add account</button>
+    </div>
+  </div>
+
+  <!-- ── password prompt modal (export/import) ──────────────────────────── -->
+  <div id="pw-modal" class="overlay hidden">
+    <div class="modal">
+      <div class="modal-head"><h2 id="pw-title">Password</h2><button class="close" data-close>&times;</button></div>
+      <p class="muted tiny" id="pw-hint"></p>
+      <input type="password" id="pw-input" placeholder="password" />
+      <textarea id="pw-textarea" rows="5" class="hidden" placeholder="one otpauth:// URI per line"></textarea>
+      <p id="pw-error" class="error"></p>
+      <button id="pw-go" class="btn primary wide">Continue</button>
+    </div>
+  </div>
+
+  <!-- ── printable QR sheet ─────────────────────────────────────────────── -->
+  <div id="print-sheet" class="hidden"></div>
+
+  <div id="toast" class="hidden"></div>
+
+  <script src="lib/jsQR.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

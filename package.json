@@ -1,0 +1,52 @@
+{
+  "name": "keyloop",
+  "productName": "Keyloop",
+  "version": "1.0.0",
+  "description": "Local, encrypted TOTP authenticator with full export/import and printable QR paper backups. Your 2FA codes, on your machine, never held hostage.",
+  "main": "main.js",
+  "author": "Ben (bensblueprints)",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/smoke.js",
+    "dist": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "otpauth": "^9.3.4",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "electron": "^33.4.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.bensblueprints.keyloop",
+    "productName": "Keyloop",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "menuCategory": "OneTimeSuite",
+      "shortcutName": "Keyloop"
+    }
+  }
+}
