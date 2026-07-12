@@ -53,7 +53,7 @@ Electron (main + preload + renderer, context-isolated) · `otpauth` (RFC 6238) �
 
 ## ☕ Skip the setup — get the 1-click installer
 
-Grab the packaged Windows installer: **[https://whop.com/onetime-suite](https://whop.com/onetime-suite)** — pay once, own it forever, no subscription.
+Grab the packaged Windows installer: **[https://whop.com/benjisaiempire/keyloop](https://whop.com/benjisaiempire/keyloop)** — pay once, own it forever, no subscription.
 
 ## License
 
