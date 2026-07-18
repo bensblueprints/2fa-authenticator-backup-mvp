@@ -2,7 +2,11 @@
 
 ## Demo
 
-VIDEO-PLACEHOLDER
+
+
+https://github.com/user-attachments/assets/b2fb62aa-4072-4419-9458-4f05debee07f
+
+
 
 **The 2FA authenticator that never holds your codes hostage. Local, encrypted, fully exportable. Pay once, own it forever.**
 
