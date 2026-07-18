@@ -1,5 +1,9 @@
 # 🔑 Keyloop
 
+## Demo
+
+VIDEO-PLACEHOLDER
+
 **The 2FA authenticator that never holds your codes hostage. Local, encrypted, fully exportable. Pay once, own it forever.**
 
 ![MIT](https://img.shields.io/badge/license-MIT-green) ![Electron](https://img.shields.io/badge/desktop-Electron-blue)
